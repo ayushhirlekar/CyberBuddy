@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Register</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+</head>
+<body>
+    <div class="logo-container">
+        <div class="text-logo">Cyber<span>Buddy</span></div>
+    </div>
+    
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch" class="theme-switch">
+        <label for="theme-switch" class="theme-switch-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form name="google-sheet" method="POST">
+              <h1>Create Account</h1>
+              <div class="social-container">
+                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+             </div>
+
+             <span>or use your email for Register</span>
+             <input type="text" name="Name" placeholder="Name" required>
+             <input type="email" name="Email" placeholder="Email" required>
+             <input type="password" name="Password" placeholder="Password" required>
+             <input type="text" name="OTP" placeholder="OTP" required>
+             <button type="submit">Sign Up</button>
+          </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form id="sign-in-form">
+                <h1>Sign In</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your Account</span>
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome to CyberBuddy</h1>
+                    <p>
+                        <b>Your digital legal companion</b>,Join <b>CyberBuddy</b> to understand your rights and responsibilities in the digital world.
+                    </p>
+                    <button class="press" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Welcome to CyberBuddy</h1>
+                    <p>
+                        we're here to help you navigate the complex world of cyber law and connect you with the proper authorities when needed.
+                        <b>Get started by signing in or creating an account to access personalized assistance</b>
+                    </p>
+                    <button class="press" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Toggle panels script
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("container");
+
+    signUpButton.addEventListener('click', () => {
+        container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+        container.classList.remove("right-panel-active");
+    });
+
+    // Theme toggle script
+    const themeSwitch = document.getElementById('theme-switch');
+    
+    // Check for saved theme preference or use default
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light_mode');
+        themeSwitch.checked = true;
+    }
+    
+    // Toggle theme when switch is clicked
+    themeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.add('light_mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light_mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // The Apps Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwRyapvhZKaxqP0ziSaQynzpfQnL7RADOq6mChL0BE2BIQH6Tbu03VRIa3GKDgZFZNQeQ/exec';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const signUpForm = document.forms['google-sheet'];
+        const signInForm = document.getElementById("sign-in-form");
+
+        // SIGNUP FUNCTION
+        signUpForm.addEventListener('submit', e => {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Create FormData object from the form
+            const formData = new FormData(signUpForm);
+            // Add the action parameter to it
+            formData.append('action', 'register');
+            
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new URLSearchParams(formData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "Success") {
+                    alert("Signup successful!");
+                    window.location.href = "chatbot.html"; // Redirect after signup
+                } else {
+                    alert("Signup failed. Try again! Response: " + data);
+                }
+            })
+            .catch(error => console.error('Error!', error.message));
+        });
+
+        // LOGIN FUNCTION
+        signInForm.addEventListener('submit', e => {
+            e.preventDefault(); // Prevent default form submission
+            
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new URLSearchParams({ 
+                    action: "login",
+                    Email: email, 
+                    Password: password 
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "Login Success") {
+                    alert("Login successful!");
+                    window.location.href = "chatbot.html"; // Redirect after login
+                } else {
+                    alert("Invalid email or password. Try again! Response: " + data);
+                }
+            })
+            .catch(error => console.error('Error!', error.message));
+        });
+    });
+    </script>
+</body>
+</html>

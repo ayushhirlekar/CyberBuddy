@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CYBERBUDDY</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            /* Hamburger Menu Styles */
+            .menu-container {
+                position: fixed;
+                top: 20px;
+                right: 20px; /* Changed from left to right */
+                z-index: 1000;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 25px;
+                height: 20px;
+                cursor: pointer;
+            }
+            
+            .hamburger-menu .bar {
+                width: 100%;
+                height: 3px;
+                background-color: var(--text-color); /* Using theme variable */
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+            
+            .menu-items {
+                position: absolute;
+                top: 40px;
+                right: 0; /* Changed from left to right */
+                background-color: var(--secondary-color); /* Using theme variable */
+                box-shadow: 0 2px 10px var(--shadow-color); /* Using theme variable */
+                border-radius: 5px;
+                padding: 10px 0;
+                min-width: 150px;
+                display: none;
+                border: 1px solid var(--border-color); /* Added border to match theme */
+            }
+            
+            .menu-items.active {
+                display: block;
+            }
+            
+            .menu-items a {
+                display: block;
+                padding: 10px 20px;
+                text-decoration: none;
+                color: var(--text-color); /* Using theme variable */
+                transition: background-color 0.3s;
+            }
+            
+            .menu-items a:hover {
+                background-color: var(--secondary-hover-color); /* Using theme variable */
+                color: var(--accent-color); /* Using theme variable */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logo-container">
+            <div class="text-logo">Cyber<span>Buddy</span></div>
+        </div>
+
+        <!-- Hamburger Menu (moved to top right) -->
+        <div class="menu-container">
+            <div class="hamburger-menu" id="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items" id="menu-items">
+                <a href="about.html">About Us</a>
+                <a href="chatbot.html">News</a>
+                <!-- Contact option removed as requested -->
+            </div>
+        </div>
+
+        <header class="header">
+            <h1 class="title">Welcome to CyberBuddy</h1>
+            <p class="subtitle">How can I help you today?</p>
+
+            <ul class="suggestion-list">
+                <li class="suggestion">
+                    <h4 class="text">How to report online fraud in India: Filing a complaint for financial cyber scams</h4>
+                    <span class="icon material-symbols-rounded">search</span>
+                </li>
+                <li class="suggestion">
+                    <h4 class="text">What is the punishment for cyberbullying in India: Understanding legal consequences </h4>
+                    <span class="icon material-symbols-rounded">search</span>
+                </li>
+                <li class="suggestion"> 
+                    <h4 class="text">Steps to file an FIR for social media harassment: Legal protections against online threats</h4>
+                    <span class="icon material-symbols-rounded">search</span>
+                </li>
+                <li class="suggestion">
+                    <h4 class="text">How to identify phishing attempts: Protecting personal data from cyber criminals</h4>
+                    <span class="icon material-symbols-rounded">search</span>
+                </li>
+            </ul>
+            
+        </header>
+
+        <div class="chat-list"></div>
+
+        <div class="typing-area">
+            <form action="#" class="typing-form">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Enter a prompt here" class="typing-input" required />
+                    <button id="send-message-button" class="icon material-symbols-rounded">send</button>
+                </div>
+                <div class="action-buttons">
+                    <span id="theme-toggle-button" class="icon material-symbols-rounded">light_mode</span>
+                    <span id="delete-chat-button" class="icon material-symbols-rounded">delete</span>
+                    <span id="voice-input-button" class="icon material-symbols-rounded">mic</span>
+                    <span id="pause-output-button" class="icon material-symbols-rounded">pause</span> <!-- New Pause/Stop Button -->
+                </div>
+            </form>
+        </div>
+        
+        <script src="script.js"></script>
+        <!-- <script type="text/javascript" src="constants.js"></script> -->
+        <script>
+            // JavaScript for hamburger menu functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const hamburgerMenu = document.getElementById('hamburger-menu');
+                const menuItems = document.getElementById('menu-items');
+                
+                hamburgerMenu.addEventListener('click', function() {
+                    menuItems.classList.toggle('active');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!hamburgerMenu.contains(event.target) && !menuItems.contains(event.target)) {
+                        menuItems.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

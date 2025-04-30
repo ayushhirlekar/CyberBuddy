@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us - CYBERBUDDY</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            /* About page specific styles */
+            .about-container {
+                max-width: 980px;
+                margin: 6vh auto 0;
+                padding: 2rem 1rem;
+                color: var(--text-color);
+            }
+            
+            .about-container h1 {
+                font-size: 3rem;
+                font-weight: 500;
+                color: var(--text-color);
+                margin-bottom: 1rem;
+            }
+            
+            .about-container h2 {
+                font-size: 2rem;
+                font-weight: 500;
+                color: var(--text-color);
+                margin: 2rem 0 1rem;
+            }
+            
+            .about-container p {
+                color: var(--subheading-color);
+                line-height: 1.8;
+                margin-bottom: 1.5rem;
+            }
+            
+            .about-section {
+                background: var(--secondary-color);
+                border-radius: 0.75rem;
+                padding: 2rem;
+                margin-bottom: 2rem;
+                border: 1px solid var(--border-color);
+            }
+            
+            .about-section:hover {
+                border-color: var(--accent-color);
+            }
+            
+            .about-section h3 {
+                color: var(--accent-color);
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+            
+            .team-member {
+                background: var(--secondary-color);
+                border-radius: 0.75rem;
+                padding: 1.5rem;
+                border: 1px solid var(--border-color);
+                transition: all 0.3s ease;
+            }
+            
+            .team-member:hover {
+                border-color: var(--accent-color);
+                transform: translateY(-5px);
+            }
+            
+            .team-member h3 {
+                color: var(--accent-color);
+                margin-bottom: 0.5rem;
+            }
+            
+            .team-member .role {
+                color: var(--text-color);
+                font-weight: 500;
+                margin-bottom: 1rem;
+            }
+            
+            .team-member .bio {
+                color: var(--subheading-color);
+            }
+            
+            .icon-feature {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .icon-feature .icon {
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                color: var(--accent-color);
+                background: var(--secondary-hover-color);
+                font-size: 1.3rem;
+            }
+            
+            .icon-feature .text {
+                flex: 1;
+            }
+            
+            .icon-feature h4 {
+                color: var(--text-color);
+                margin-bottom: 0.25rem;
+            }
+            
+            .icon-feature p {
+                color: var(--subheading-color);
+                margin-bottom: 0;
+            }
+            
+            .back-button {
+                display: inline-flex;
+                align-items: center;
+                padding: 0.75rem 1.5rem;
+                background: var(--secondary-color);
+                border: 1px solid var(--border-color);
+                border-radius: 1.5rem;
+                color: var(--text-color);
+                text-decoration: none;
+                margin-top: 2rem;
+                transition: all 0.3s ease;
+            }
+            
+            .back-button:hover {
+                border-color: var(--accent-color);
+                color: var(--accent-color);
+            }
+            
+            .back-button .icon {
+                margin-right: 0.5rem;
+            }
+            
+            /* Hamburger Menu Styles */
+            .menu-container {
+                position: fixed;
+                top: 20px;
+                right: 20px; 
+                z-index: 1000;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 25px;
+                height: 20px;
+                cursor: pointer;
+            }
+            
+            .hamburger-menu .bar {
+                width: 100%;;
+                height: 3px;
+                background-color: var(--text-color);
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+            
+            .menu-items {
+                position: absolute;
+                top: 40px;
+                right: 0;
+                background-color: var(--secondary-color);
+                box-shadow: 0 2px 10px var(--shadow-color);
+                border-radius: 5px;
+                padding: 10px 0;
+                min-width: 150px;
+                display: none;
+                border: 1px solid var(--border-color);
+            }
+            
+            .menu-items.active {
+                display: block;
+            }
+            
+            .menu-items a {
+                display: block;
+                padding: 10px 20px;
+                text-decoration: none;
+                color: var(--text-color);
+                transition: background-color 0.3s;
+            }
+            
+            .menu-items a:hover {
+                background-color: var(--secondary-hover-color);
+                color: var(--accent-color);
+            }
+            
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .about-container h1 {
+                    font-size: 2rem;
+                    line-height: 2.6rem;
+                }
+                
+                .about-container h2 {
+                    font-size: 1.7rem;
+                }
+                
+                .team-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logo-container">
+            <div class="text-logo">Cyber<span>Buddy</span></div>
+        </div>
+
+        <!-- Hamburger Menu -->
+        <div class="menu-container">
+            <div class="hamburger-menu" id="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu-items" id="menu-items">
+                <a href="chatbot.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="news.html">News</a>
+            </div>
+        </div>
+
+        <div class="about-container">
+            <h1>About CyberBuddy</h1>
+            <p>CyberBuddy is your intelligent companion in navigating the complex world of cyber security and online safety in India. Our mission is to make cybersecurity knowledge accessible to everyone through an intuitive, conversational interface.</p>
+            
+            <div class="about-section">
+                <h3>What We Do</h3>
+                <p>CyberBuddy is designed to provide immediate, accurate information about cybersecurity threats, legal protections, and reporting procedures specific to the Indian context. Our AI-powered chatbot offers guidance on:</p>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">security</span>
+                    <div class="text">
+                        <h4>Cybercrime Reporting</h4>
+                        <p>Step-by-step guidance on how to report different types of cybercrimes to relevant authorities in India.</p>
+                    </div>
+                </div>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">gavel</span>
+                    <div class="text">
+                        <h4>Legal Information</h4>
+                        <p>Clear explanations of cyber laws, penalties for different offenses, and your rights as a digital citizen.</p>
+                    </div>
+                </div>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">warning</span>
+                    <div class="text">
+                        <h4>Threat Identification</h4>
+                        <p>Help identifying common cyber threats like phishing, social media harassment, and online fraud.</p>
+                    </div>
+                </div>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">shield</span>
+                    <div class="text">
+                        <h4>Preventive Measures</h4>
+                        <p>Practical advice on protecting yourself from cyber threats and securing your digital presence.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-section">
+                <h3>Why CyberBuddy?</h3>
+                <p>In today's digital age, cybersecurity literacy is essential. However, finding reliable, context-specific information can be challenging. CyberBuddy bridges this gap by:</p>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">translate</span>
+                    <div class="text">
+                        <h4>Simplifying Complex Information</h4>
+                        <p>Breaking down technical jargon into easy-to-understand guidance.</p>
+                    </div>
+                </div>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">public</span>
+                    <div class="text">
+                        <h4>India-Specific Focus</h4>
+                        <p>All information is tailored to Indian laws, reporting mechanisms, and common threats.</p>
+                    </div>
+                </div>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">schedule</span>
+                    <div class="text">
+                        <h4>24/7 Availability</h4>
+                        <p>Get immediate assistance whenever you encounter a cybersecurity concern.</p>
+                    </div>
+                </div>
+                
+                <div class="icon-feature">
+                    <span class="icon material-symbols-rounded">update</span>
+                    <div class="text">
+                        <h4>Up-to-Date Information</h4>
+                        <p>Constantly updated to reflect the latest threats, laws, and best practices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Meet Our Team</h2>
+            <p>CyberBuddy is developed by a passionate team of students committed to enhancing cybersecurity awareness in India.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3>Arpita Chavan</h3>
+                    <div class="role"></div>
+                    <p class="bio"></p>
+                </div>
+                
+                <div class="team-member">
+                    <h3>Gagan Jadhav</h3>
+                    <div class="role"></div>
+                    <p class="bio"></p>
+                </div>
+                
+                <div class="team-member">
+                    <h3>Aarya Bhatt</h3>
+                    <div class="role"></div>
+                    <p class="bio"></p>
+                </div>
+
+                <div class="team-member">
+                    <h3>Ayush Hirlekar</h3>
+                    <div class="role"></div>
+                    <p class="bio"></p>
+                </div>
+                
+            </div>
+            
+            <a href="chatbot.html" class="back-button">
+                <span class="icon material-symbols-rounded">arrow_back</span>
+                Back to Chat
+            </a>
+        </div>
+        
+        <script>
+            // JavaScript for hamburger menu functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const hamburgerMenu = document.getElementById('hamburger-menu');
+                const menuItems = document.getElementById('menu-items');
+                
+                hamburgerMenu.addEventListener('click', function() {
+                    menuItems.classList.toggle('active');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!hamburgerMenu.contains(event.target) && !menuItems.contains(event.target)) {
+                        menuItems.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
