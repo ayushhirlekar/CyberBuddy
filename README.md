@@ -84,6 +84,4 @@ This project is licensed under the MIT License.
 **Gagan ,Arpita ,Aarya ,Ayush**  
 For questions, feedback, or collaboration, feel free to connect.
 
----
 
-**Made with ❤️ for cyber safety and legal literacy.**
